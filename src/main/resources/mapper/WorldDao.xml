@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rat.study.dataSource.dao.WorldDao">
+
+    <resultMap type="com.rat.study.dataSource.entity.World" id="WorldMap">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="name" column="NAME" jdbcType="VARCHAR"/>
+        <result property="continent" column="continent" jdbcType="VARCHAR"/>
+        <result property="area" column="area" jdbcType="INTEGER"/>
+        <result property="population" column="population" jdbcType="INTEGER"/>
+        <result property="gdp" column="gdp" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="WorldMap">
+        select
+          id, NAME, continent, area, population, gdp
+        from ratstudy.world
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="WorldMap">
+        select
+          NAME, continent, area, population, gdp, id
+        from ratstudy.world
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="WorldMap">
+        select
+          NAME, continent, area, population, gdp, id
+        from ratstudy.world
+        <where>
+            <if test="name != null and name != ''">
+                and NAME = #{name}
+            </if>
+            <if test="continent != null and continent != ''">
+                and continent = #{continent}
+            </if>
+            <if test="area != null">
+                and area = #{area}
+            </if>
+            <if test="population != null">
+                and population = #{population}
+            </if>
+            <if test="gdp != null">
+                and gdp = #{gdp}
+            </if>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="" useGeneratedKeys="true">
+        insert into ratstudy.world(NAME, continent, area, population, gdp)
+        values (#{name}, #{continent}, #{area}, #{population}, #{gdp})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update ratstudy.world
+        <set>
+            <if test="name != null and name != ''">
+                NAME = #{name},
+            </if>
+            <if test="continent != null and continent != ''">
+                continent = #{continent},
+            </if>
+            <if test="area != null">
+                area = #{area},
+            </if>
+            <if test="population != null">
+                population = #{population},
+            </if>
+            <if test="gdp != null">
+                gdp = #{gdp},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from ratstudy.world where id = #{id}
+    </delete>
+
+</mapper>
