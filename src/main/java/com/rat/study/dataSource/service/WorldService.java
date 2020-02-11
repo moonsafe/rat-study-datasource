@@ -1,6 +1,8 @@
 package com.rat.study.dataSource.service;
 
 import com.rat.study.dataSource.entity.World;
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 /**

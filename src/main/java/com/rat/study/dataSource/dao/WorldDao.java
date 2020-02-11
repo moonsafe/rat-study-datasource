@@ -1,8 +1,8 @@
 package com.rat.study.dataSource.dao;
 
 import com.rat.study.dataSource.entity.World;
-import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
 
 /**
@@ -11,7 +11,6 @@ import java.util.List;
  * @author makejava
  * @since 2020-02-09 15:37:25
  */
-@Mapper
 public interface WorldDao {
 
     /**
